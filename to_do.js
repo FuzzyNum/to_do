@@ -10,6 +10,16 @@ function loadTasks() {
   }
 }
 
+function showToast(message) {
+    const toast = document.getElementById("toast");
+    toast.textContent = message;
+    toast.className = "show";
+  
+    setTimeout(() => {
+      toast.className = toast.className.replace("show", "");
+    }, 2000);
+  }
+
 function saveTasks() {
   localStorage.setItem("tasks", JSON.stringify(tasks));
 }
@@ -47,7 +57,7 @@ function renderTask(text, completed) {
 
     if (checkbox.checked) {
       label.classList.add("completed");
-
+      showToast("Task Completed!");
       // Start 2-second timer to remove task
       timeoutId = setTimeout(() => {
         tasks.splice(index, 1);          // Remove from array

@@ -1,4 +1,3 @@
-/* style.css */
 body {
     font-family: Arial, sans-serif;
     display: flex;
@@ -12,31 +11,62 @@ body {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
+    width: 350px;
   }
   
   input {
     padding: 8px;
     font-size: 16px;
-    width: 70%;
+    width: 65%;
   }
   
   button {
     padding: 8px 12px;
     margin-left: 8px;
+    font-size: 16px;
+  }
+  
+  ul {
+    padding: 0;
+    margin-top: 20px;
   }
   
   li {
-    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
     list-style: none;
+    word-wrap: break-word;
   }
   
   .task-label {
-    margin-left: 8px;
+    flex: 1;
+    word-break: break-word;
   }
   
   .completed {
     text-decoration: line-through;
     color: gray;
+  }
+  
+  /* Toast Styling */
+  #toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #4caf50;
+    color: white;
+    padding: 14px 24px;
+    border-radius: 8px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+    font-size: 16px;
+    z-index: 1000;
+  }
+  #toast.show {
+    opacity: 1;
   }
   
