@@ -95,6 +95,13 @@ function clearCompletedTasks() {
     renderAllTasks();
     showToast("Cleared completed tasks.");
   }
+ 
+
+  document.getElementById("taskInput").addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+      addTask();
+    }
+  });
   
 
 window.onload = loadTasks;
