@@ -83,4 +83,19 @@ function setFilter(filter) {
   renderAllTasks();
 }
 
+function clearCompletedTasks() {
+    const anyCompleted = tasks.some(task => task.completed);
+    if (!anyCompleted) {
+      showToast("No completed tasks to clear.");
+      return;
+    }
+  
+    tasks = tasks.filter(task => !task.completed);
+    saveTasks();
+    renderAllTasks();
+    showToast("Cleared completed tasks.");
+  }
+  
+
 window.onload = loadTasks;
+
