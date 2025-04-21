@@ -1,24 +1,14 @@
-// script.js
-
 let tasks = [];
+let currentFilter = "all";
 
 function loadTasks() {
   const saved = localStorage.getItem("tasks");
   if (saved) {
     tasks = JSON.parse(saved);
-    tasks.forEach(task => renderTask(task.text, task.completed));
   }
+  renderAllTasks();
+  updateFilterHighlight();
 }
-
-function showToast(message) {
-    const toast = document.getElementById("toast");
-    toast.textContent = message;
-    toast.className = "show";
-  
-    setTimeout(() => {
-      toast.className = toast.className.replace("show", "");
-    }, 2000);
-  }
 
 function saveTasks() {
   localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -32,55 +22,46 @@ function addTask() {
   const newTask = { text: taskText, completed: false };
   tasks.push(newTask);
   saveTasks();
-  renderTask(newTask.text, newTask.completed);
+  renderAllTasks();
   taskInput.value = "";
 }
 
-function renderTask(text, completed) {
+function renderAllTasks() {
+  const taskList = document.getElementById("taskList");
+  taskList.innerHTML = ""; // Clear current list
+
+  tasks.forEach(task => {
+    if (
+      currentFilter === "all" ||
+      (currentFilter === "active" && !task.completed) ||
+      (currentFilter === "completed" && task.completed)
+    ) {
+      renderTask(task);
+    }
+  });
+}
+
+function renderTask(task) {
   const taskList = document.getElementById("taskList");
   const li = document.createElement("li");
 
   const checkbox = document.createElement("input");
   checkbox.type = "checkbox";
-  checkbox.checked = completed;
+  checkbox.checked = task.completed;
 
   const label = document.createElement("label");
-  label.textContent = text;
+  label.textContent = task.text;
   label.className = "task-label";
-  if (completed) label.classList.add("completed");
-
-  let timeoutId = null;
+  if (task.completed) label.classList.add("completed");
 
   checkbox.onchange = () => {
-    const index = tasks.findIndex(t => t.text === text);
-    if (index === -1) return;
-
-    if (checkbox.checked) {
-      label.classList.add("completed");
-      showToast("Task Completed!");
-      // Start 2-second timer to remove task
-      timeoutId = setTimeout(() => {
-        tasks.splice(index, 1);          // Remove from array
-        li.remove();                     // Remove from DOM
-        saveTasks();                     // Save new state
-      }, 2000);
-    } else {
-      label.classList.remove("completed");
-
-      // Cancel deletion if unchecked quickly
-      if (timeoutId !== null) clearTimeout(timeoutId);
-
-      tasks[index].completed = false;
-      saveTasks();
-    }
-
-    if (checkbox.checked) {
-      tasks[index].completed = true;
-    } else {
-      tasks[index].completed = false;
-    }
-
+    task.completed = checkbox.checked;
     saveTasks();
+    renderAllTasks(); // Refresh the list based on filter
+
+    if (checkbox.checked) {
+      showToast("Task completed!");
+    }
   };
 
   li.appendChild(checkbox);
@@ -88,4 +69,31 @@ function renderTask(text, completed) {
   taskList.appendChild(li);
 }
 
+function showToast(message) {
+  const toast = document.getElementById("toast");
+  toast.textContent = message;
+  toast.className = "show";
+
+  setTimeout(() => {
+    toast.className = toast.className.replace("show", "");
+  }, 2000);
+}
+
+function setFilter(filter) {
+    currentFilter = filter;
+    renderAllTasks();
+    updateFilterHighlight();
+  }
+  
+function updateFilterHighlight() {
+    const buttons = document.querySelectorAll(".filters button");
+    buttons.forEach(button => {
+      if (button.textContent.toLowerCase() === currentFilter) {
+        button.classList.add("active-filter");
+      } else {
+        button.classList.remove("active-filter");
+      }
+    });
+}
+  
 window.onload = loadTasks;

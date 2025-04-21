@@ -34,22 +34,30 @@ body {
   li {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 12px;
-    list-style: none;
-    word-wrap: break-word;
+    justify-content: space-between;
+    background-color: #f0f0f0;
+    padding: 10px 14px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.05);
   }
   
   .task-label {
     flex: 1;
+    margin-left: 10px;
     word-break: break-word;
+    font-size: 16px;
   }
   
   .completed {
     text-decoration: line-through;
     color: gray;
+    opacity: 0.7;
   }
   
+  input[type="checkbox"] {
+    transform: scale(1.3);
+  }
   /* Toast Styling */
   #toast {
     position: fixed;
@@ -68,5 +76,33 @@ body {
   }
   #toast.show {
     opacity: 1;
+  }
+  
+  .filters {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+    gap: 8px;
+  }
+  
+  .filters button {
+    padding: 6px 14px;
+    font-size: 14px;
+    cursor: pointer;
+    background: #e0e0e0;
+    border: none;
+    border-radius: 6px;
+    transition: background 0.2s, transform 0.2s;
+  }
+  
+  .filters button:hover {
+    background: #ccc;
+    transform: translateY(-1px);
+  }
+  
+  .filters .active-filter {
+    background-color: #4caf50;
+    color: white;
+    font-weight: bold;
   }
   
