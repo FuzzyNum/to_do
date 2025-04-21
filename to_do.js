@@ -7,7 +7,6 @@ function loadTasks() {
     tasks = JSON.parse(saved);
   }
   renderAllTasks();
-  updateFilterHighlight();
 }
 
 function saveTasks() {
@@ -80,20 +79,8 @@ function showToast(message) {
 }
 
 function setFilter(filter) {
-    currentFilter = filter;
-    renderAllTasks();
-    updateFilterHighlight();
-  }
-  
-function updateFilterHighlight() {
-    const buttons = document.querySelectorAll(".filters button");
-    buttons.forEach(button => {
-      if (button.textContent.toLowerCase() === currentFilter) {
-        button.classList.add("active-filter");
-      } else {
-        button.classList.remove("active-filter");
-      }
-    });
+  currentFilter = filter;
+  renderAllTasks();
 }
-  
+
 window.onload = loadTasks;
