@@ -1,0 +1,42 @@
+/* style.css */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;
+    background-color: #f9f9f9;
+  }
+  
+  .container {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+  }
+  
+  input {
+    padding: 8px;
+    font-size: 16px;
+    width: 70%;
+  }
+  
+  button {
+    padding: 8px 12px;
+    margin-left: 8px;
+  }
+  
+  li {
+    margin-top: 10px;
+    list-style: none;
+  }
+  
+  .task-label {
+    margin-left: 8px;
+  }
+  
+  .completed {
+    text-decoration: line-through;
+    color: gray;
+  }
+  
